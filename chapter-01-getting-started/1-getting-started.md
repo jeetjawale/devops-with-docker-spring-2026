@@ -119,7 +119,7 @@ Docker version <version>
 
 ---
 
-## Interview Questions
+## Questions
 
 ### Q1. Why is adding a user to the `docker` group a security consideration?
 
