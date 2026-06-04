@@ -2,7 +2,7 @@
 
 ## Course Overview
 
-Repository for study notes, exercise hints, and cheatsheets for the University of Helsinki MOOC.fi course **DevOps with Docker (Spring 2026)**.
+Repository for study notes for the University of Helsinki MOOC.fi course **DevOps with Docker (Spring 2026)**.
 
 Course Deadline: 16 June 2026
 
