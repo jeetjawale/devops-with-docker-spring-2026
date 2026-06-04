@@ -1,16 +1,5 @@
 # Chapter 1 - Getting Started
 
-## Metadata
-
-| Field   | Value                        |
-| ------- | ---------------------------- |
-| Course  | DevOps with Docker (MOOC.fi) |
-| Chapter | 1                            |
-| Section | 1                            |
-| Topic   | Getting Started              |
-
----
-
 ## Overview
 
 This section introduces the course structure, how exercises and grading work, the submission process, and the expectations around prerequisites and safe Docker usage. It also covers responsible use of LLMs and where to get support.
