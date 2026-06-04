@@ -8,7 +8,7 @@ Course deadline: **June 17, 2026 at 2:29:59 AM (UTC+5:30)**.
 ## Repository Structure
 | Path | Purpose |
 | --- | --- |
-| `chapter-01-getting-started/` | Chapter 1 notes and exercises |
+| `chapter-01-getting-started/` | Chapter 1 notes |
 | `chapter-02-docker-basics/` | Chapter 2 notes and exercises |
 | `chapter-03-docker-compose/` | Chapter 3 notes and exercises |
 | `chapter-04-security-and-optimization/` | Chapter 4 notes and exercises |
