@@ -10,12 +10,12 @@ This section explores Docker images in detail. It covers how to find and pull im
 
 After completing this section, you should be able to:
 
-* Search for and pull images from Docker Hub and custom registries.
-* Understand the anatomy of a Docker image name and tag.
-* Write a basic `Dockerfile` using `FROM`, `WORKDIR`, `COPY`, `RUN`, and `CMD`.
-* Build a custom image from a `Dockerfile`.
-* Understand how image layers work and how they benefit the build cache.
-* Recognize why `docker commit` is considered a bad practice compared to using Dockerfiles.
+- Search for and pull images from Docker Hub and custom registries.
+- Understand the anatomy of a Docker image name and tag.
+- Write a basic `Dockerfile` using `FROM`, `WORKDIR`, `COPY`, `RUN`, and `CMD`.
+- Build a custom image from a `Dockerfile`.
+- Understand how image layers work and how they benefit the build cache.
+- Recognize why `docker commit` is considered a bad practice compared to using Dockerfiles.
 
 ---
 
@@ -30,9 +30,9 @@ A registry is a centralized service for storing and distributing container image
 An image name generally follows this structure:
 `registry/organisation/image:tag`
 
-* **Official Images**: Have no prefix (e.g., `ubuntu`). They default to the `library` organization on Docker Hub.
-* **Unofficial Images**: Have a user or organization prefix (e.g., `devopsdockeruh/simple-web-service`).
-* **Tags**: Labels applied to images to denote specific versions or variants (e.g., `ubuntu:24.04`). If omitted, it defaults to the `latest` tag.
+- **Official Images**: Have no prefix (e.g., `ubuntu`). They default to the `library` organization on Docker Hub.
+- **Unofficial Images**: Have a user or organization prefix (e.g., `devopsdockeruh/simple-web-service`).
+- **Tags**: Labels applied to images to denote specific versions or variants (e.g., `ubuntu:24.04`). If omitted, it defaults to the `latest` tag.
 
 ### Image Layers
 
@@ -72,25 +72,25 @@ graph TD
 
 ### CLI Commands
 
-| Command | Purpose |
-| ------- | ------- |
-| `docker search <term>` | Searches Docker Hub for images matching the term. |
-| `docker pull <image>:<tag>` | Downloads an image and a specific tag from a registry. |
-| `docker tag <old> <new>` | Creates a new tag referencing an existing local image. |
-| `docker build -t <name> .` | Builds an image from the `Dockerfile` in the current directory (`.`). |
-| `docker cp <host_path> <container>:<dest>` | Copies a file from the host machine into a running container. |
-| `docker diff <container>` | Shows changes made to a container's filesystem (Added, Changed, Deleted). |
-| `docker commit <container> <name>` | Saves a modified container as a new image. *(Anti-pattern)* |
+| Command                                    | Purpose                                                                   |
+| ------------------------------------------ | ------------------------------------------------------------------------- |
+| `docker search <term>`                     | Searches Docker Hub for images matching the term.                         |
+| `docker pull <image>:<tag>`                | Downloads an image and a specific tag from a registry.                    |
+| `docker tag <old> <new>`                   | Creates a new tag referencing an existing local image.                    |
+| `docker build -t <name> .`                 | Builds an image from the `Dockerfile` in the current directory (`.`).     |
+| `docker cp <host_path> <container>:<dest>` | Copies a file from the host machine into a running container.             |
+| `docker diff <container>`                  | Shows changes made to a container's filesystem (Added, Changed, Deleted). |
+| `docker commit <container> <name>`         | Saves a modified container as a new image. _(Anti-pattern)_               |
 
 ### Dockerfile Instructions
 
-| Instruction | Purpose |
-| ----------- | ------- |
-| `FROM` | Specifies the base image to build upon. Must be the first instruction. |
-| `WORKDIR` | Sets the working directory inside the image for subsequent instructions. |
-| `COPY` | Copies files from the host machine's build context into the image. |
-| `RUN` | Executes a shell command **during the image build phase** (e.g., installing packages). |
-| `CMD` | Defines the default command to execute **when the container runs**. |
+| Instruction | Purpose                                                                                |
+| ----------- | -------------------------------------------------------------------------------------- |
+| `FROM`      | Specifies the base image to build upon. Must be the first instruction.                 |
+| `WORKDIR`   | Sets the working directory inside the image for subsequent instructions.               |
+| `COPY`      | Copies files from the host machine's build context into the image.                     |
+| `RUN`       | Executes a shell command **during the image build phase** (e.g., installing packages). |
+| `CMD`       | Defines the default command to execute **when the container runs**.                    |
 
 ---
 
@@ -99,6 +99,7 @@ graph TD
 ### Building a custom image
 
 **1. Create a `Dockerfile`:**
+
 ```dockerfile
 # Start from Alpine Linux (a very small Linux distribution)
 FROM alpine:3.21
@@ -117,19 +118,21 @@ CMD ["./script.sh"]
 ```
 
 **2. Build the image:**
+
 ```bash
 docker build -t my-script-image:v1 .
 ```
-*(The `.` tells Docker to look for the Dockerfile in the current directory).*
+
+_(The `.` tells Docker to look for the Dockerfile in the current directory)._
 
 ---
 
 ## Quick Revision
 
-* Official Docker Hub images have no prefix. Unofficial ones have a user or organization prefix.
-* The `latest` tag just means the default tag assigned if none is specified; it doesn't strictly guarantee it's the absolute newest software version (e.g., Ubuntu uses it for the latest LTS).
-* `RUN` prepares the image at build time. `CMD` runs the application at runtime.
-* Layers speed up the build process because unchanged instructions use the cache.
+- Official Docker Hub images have no prefix. Unofficial ones have a user or organization prefix.
+- The `latest` tag just means the default tag assigned if none is specified; it doesn't strictly guarantee it's the absolute newest software version (e.g., Ubuntu uses it for the latest LTS).
+- `RUN` prepares the image at build time. `CMD` runs the application at runtime.
+- Layers speed up the build process because unchanged instructions use the cache.
 
 ---
 
@@ -151,24 +154,24 @@ It creates a "black box" image where the exact steps taken to produce it are not
 
 ## Common Mistakes
 
-* **Forgetting the build context `.`**: Running `docker build -t my-app` without specifying the path `.` at the end will result in an error.
-* **Assuming `latest` is always the newest release**: Always verify what the maintainers map the `latest` tag to. For production, pin specific version tags (e.g., `alpine:3.21`) instead of relying on `latest`.
-* **Confusing `RUN` and `CMD`**: Trying to run an application loop or start a server using `RUN`. `RUN` is only for setting up the image during the build; `CMD` is what keeps the container running later.
-* **Windows Line Endings**: Windows users running into "not found" errors because a copied `.sh` script has Windows `CRLF` line endings instead of Unix `LF` line endings.
+- **Forgetting the build context `.`**: Running `docker build -t my-app` without specifying the path `.` at the end will result in an error.
+- **Assuming `latest` is always the newest release**: Always verify what the maintainers map the `latest` tag to. For production, pin specific version tags (e.g., `alpine:3.21`) instead of relying on `latest`.
+- **Confusing `RUN` and `CMD`**: Trying to run an application loop or start a server using `RUN`. `RUN` is only for setting up the image during the build; `CMD` is what keeps the container running later.
+- **Windows Line Endings**: Windows users running into "not found" errors because a copied `.sh` script has Windows `CRLF` line endings instead of Unix `LF` line endings.
 
 ---
 
 ## References
 
-* [MOOC.fi Course Material](https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-spring-2026/chapter-2/in-depth-dive-into-images)
-* [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
-* [Docker Build Reference](https://docs.docker.com/engine/reference/commandline/build/)
+- [MOOC.fi Course Material](https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-spring-2026/chapter-2/in-depth-dive-into-images)
+- [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
+- [Docker Build Reference](https://docs.docker.com/engine/reference/commandline/build/)
 
 ---
 
 ## Key Takeaways
 
-* Everything in Docker relies on images.
-* Images are composed of cacheable layers, which make subsequent builds highly efficient.
-* Always use a `Dockerfile` for reproducible image builds instead of relying on manual `docker commit` snapshots.
-* Understand the difference between what happens at build time (`RUN`) vs run time (`CMD`).
+- Everything in Docker relies on images.
+- Images are composed of cacheable layers, which make subsequent builds highly efficient.
+- Always use a `Dockerfile` for reproducible image builds instead of relying on manual `docker commit` snapshots.
+- Understand the difference between what happens at build time (`RUN`) vs run time (`CMD`).

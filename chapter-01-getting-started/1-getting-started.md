@@ -10,10 +10,10 @@ This section introduces the course structure, how exercises and grading work, th
 
 After completing this section, you should be able to:
 
-* Explain how the course is structured and graded (chapters, mandatory exercises, allowed skips).
-* Describe the exercise submission flow and why formatting matters.
-* Verify Docker is installed and understand the security implications of Docker access.
-* Use LLMs as helpers while keeping responsibility for correctness and safety.
+- Explain how the course is structured and graded (chapters, mandatory exercises, allowed skips).
+- Describe the exercise submission flow and why formatting matters.
+- Verify Docker is installed and understand the security implications of Docker access.
+- Use LLMs as helpers while keeping responsibility for correctness and safety.
 
 ---
 
@@ -34,9 +34,9 @@ LLMs can help clarify configurations and debug errors, but they can also be wron
 
 ### Examples
 
-* Chapter 2 requires **15/16** exercises to pass; Chapter 3 and Chapter 4 each require **10/11**.
-* The course deadline for submissions is **16 June 2026**; after that, exercises are locked.
-* Chapter 1 has no ECTS credits; Chapters 2-4 each grant **1 ECTS** when completed.
+- Chapter 2 requires **15/16** exercises to pass; Chapter 3 and Chapter 4 each require **10/11**.
+- The course deadline for submissions is **16 June 2026**; after that, exercises are locked.
+- Chapter 1 has no ECTS credits; Chapters 2-4 each grant **1 ECTS** when completed.
 
 ### Diagrams
 
@@ -100,11 +100,11 @@ Docker version <version>
 
 ## Quick Revision
 
-* The course is sequential; exercises reinforce the material as you go.
-* You may skip one non-mandatory exercise per chapter, but mandatory exercises must be completed.
-* Submissions must follow the required format or they can be rejected.
-* Docker access is powerful; treat it like admin access.
-* LLMs are helpful, but you are responsible for correctness and safety.
+- The course is sequential; exercises reinforce the material as you go.
+- You may skip one non-mandatory exercise per chapter, but mandatory exercises must be completed.
+- Submissions must follow the required format or they can be rejected.
+- Docker access is powerful; treat it like admin access.
+- LLMs are helpful, but you are responsible for correctness and safety.
 
 ---
 
@@ -126,25 +126,25 @@ They can produce convincing but incorrect or insecure configurations, so you mus
 
 ## Common Mistakes
 
-* Skipping a mandatory exercise and expecting the chapter to pass.
-* Submitting answers in the wrong format or missing required content.
-* Modifying the example application code when the exercise forbids it.
-* Treating Docker commands as harmless despite their elevated access.
-* Copying LLM output without understanding or verifying it.
+- Skipping a mandatory exercise and expecting the chapter to pass.
+- Submitting answers in the wrong format or missing required content.
+- Modifying the example application code when the exercise forbids it.
+- Treating Docker commands as harmless despite their elevated access.
+- Copying LLM output without understanding or verifying it.
 
 ---
 
 ## References
 
-* [MOOC.fi Course Material](https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-spring-2026/chapter-1)
-* [Docker Documentation](https://docs.docker.com/)
-* [Course Discord](https://discord.gg/your-discord-invite) (support and discussion)
+- [MOOC.fi Course Material](https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-spring-2026/chapter-1)
+- [Docker Documentation](https://docs.docker.com/)
+- [Course Discord](https://discord.gg/your-discord-invite) (support and discussion)
 
 ---
 
 ## Key Takeaways
 
-* Follow the course in order and complete required exercises.
-* Submit exercises in the specified format and complete self-reviews.
-* Verify Docker installation and understand the security implications.
-* Use LLMs as helpers, not as replacements for understanding.
+- Follow the course in order and complete required exercises.
+- Submit exercises in the specified format and complete self-reviews.
+- Verify Docker installation and understand the security implications.
+- Use LLMs as helpers, not as replacements for understanding.

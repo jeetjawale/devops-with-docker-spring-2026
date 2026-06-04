@@ -10,12 +10,12 @@ This section dives deeper into container management. It covers how to interact w
 
 After completing this section, you should be able to:
 
-* Run interactive terminal sessions inside containers.
-* Follow live log outputs from detached containers.
-* Attach to and gracefully detach from running containers without terminating them.
-* Execute secondary commands within an already running container.
-* Understand the technical difference between stopping and killing a container.
-* Understand multi-platform images and architecture warnings.
+- Run interactive terminal sessions inside containers.
+- Follow live log outputs from detached containers.
+- Attach to and gracefully detach from running containers without terminating them.
+- Execute secondary commands within an already running container.
+- Understand the technical difference between stopping and killing a container.
+- Understand multi-platform images and architecture warnings.
 
 ---
 
@@ -27,7 +27,7 @@ By default, containers run isolated from your host's terminal. To interact with 
 
 ### Container Primary Process (PID 1)
 
-A container stays alive as long as its primary process (PID 1) is running. If you attach to a container and press `Ctrl+C`, you usually kill that primary process, causing the container to exit. 
+A container stays alive as long as its primary process (PID 1) is running. If you attach to a container and press `Ctrl+C`, you usually kill that primary process, causing the container to exit.
 
 ### Ephemeral Nature of Containers
 
@@ -39,17 +39,17 @@ A container functions like a standard operating system (e.g., Ubuntu). You can i
 
 ### Command Reference
 
-| Command | Purpose |
-| ------- | ------- |
-| `docker run -it <image>` | Runs a container and attaches an interactive terminal session to it. |
-| `docker run -d <image>` | Runs a container in detached mode (background). |
-| `docker run --name <name> <image>` | Assigns a custom, memorable name to the container instead of a random string. |
-| `docker run --rm <image>` | Automatically removes the container from the daemon as soon as it exits. |
-| `docker logs -f <container>` | Tails and follows the standard output (STDOUT) of the container, showing live logs. |
-| `docker pause / unpause <container>` | Suspends/resumes all processes inside the container without exiting them. |
-| `docker attach <container>` | Connects your host terminal's STDIN/STDOUT to the container's primary running process. |
-| `docker exec -it <container> <command>`| Executes a *new* interactive command (like `bash`) inside an already running container. |
-| `docker kill <container>` | Forcefully and immediately terminates the container. |
+| Command                                 | Purpose                                                                                 |
+| --------------------------------------- | --------------------------------------------------------------------------------------- |
+| `docker run -it <image>`                | Runs a container and attaches an interactive terminal session to it.                    |
+| `docker run -d <image>`                 | Runs a container in detached mode (background).                                         |
+| `docker run --name <name> <image>`      | Assigns a custom, memorable name to the container instead of a random string.           |
+| `docker run --rm <image>`               | Automatically removes the container from the daemon as soon as it exits.                |
+| `docker logs -f <container>`            | Tails and follows the standard output (STDOUT) of the container, showing live logs.     |
+| `docker pause / unpause <container>`    | Suspends/resumes all processes inside the container without exiting them.               |
+| `docker attach <container>`             | Connects your host terminal's STDIN/STDOUT to the container's primary running process.  |
+| `docker exec -it <container> <command>` | Executes a _new_ interactive command (like `bash`) inside an already running container. |
+| `docker kill <container>`               | Forcefully and immediately terminates the container.                                    |
 
 ---
 
@@ -73,7 +73,7 @@ docker exec -it looper bash
 ```
 
 Expected result:
-You open a *secondary* interactive bash shell inside `looper`. You can explore the filesystem or check processes (e.g., using `ps aux`). Exiting this shell will close the shell process, but the main `looper` container will keep running.
+You open a _secondary_ interactive bash shell inside `looper`. You can explore the filesystem or check processes (e.g., using `ps aux`). Exiting this shell will close the shell process, but the main `looper` container will keep running.
 
 ---
 
@@ -96,9 +96,9 @@ graph TD
 
 ### Detaching Gracefully
 
-If you are attached to a container's primary process (via `docker run -it` or `docker attach`), hitting `Ctrl+C` will kill the process and stop the container. 
+If you are attached to a container's primary process (via `docker run -it` or `docker attach`), hitting `Ctrl+C` will kill the process and stop the container.
 
-To detach *without* killing the container, use the Docker escape sequence:
+To detach _without_ killing the container, use the Docker escape sequence:
 **`Ctrl+P, Ctrl+Q`**
 
 Alternatively, you can attach using `docker attach --no-stdin <container>`. In this mode, `Ctrl+C` only disconnects your terminal, leaving the container running.
@@ -107,12 +107,12 @@ Alternatively, you can attach using `docker attach --no-stdin <container>`. In t
 
 ## Quick Revision
 
-* Use `-it` to interact with containers.
-* Use `--name` to give containers readable names instead of random ones.
-* Use `--rm` for throwaway containers to prevent disk space clutter.
-* `docker logs -f` is the primary way to observe background containers.
-* `docker exec` is essential for debugging running containers.
-* Changes made inside a container (like installing nano or creating files) disappear if the container is removed.
+- Use `-it` to interact with containers.
+- Use `--name` to give containers readable names instead of random ones.
+- Use `--rm` for throwaway containers to prevent disk space clutter.
+- `docker logs -f` is the primary way to observe background containers.
+- `docker exec` is essential for debugging running containers.
+- Changes made inside a container (like installing nano or creating files) disappear if the container is removed.
 
 ---
 
@@ -120,7 +120,7 @@ Alternatively, you can attach using `docker attach --no-stdin <container>`. In t
 
 ### Q1. What is the difference between `docker attach` and `docker exec`?
 
-`docker attach` connects your host's terminal to the *existing primary process* (PID 1) of the container. `docker exec` starts a *completely new, secondary process* inside the running container (such as opening a new bash shell for debugging).
+`docker attach` connects your host's terminal to the _existing primary process_ (PID 1) of the container. `docker exec` starts a _completely new, secondary process_ inside the running container (such as opening a new bash shell for debugging).
 
 ### Q2. What is the difference between `docker stop` and `docker kill`?
 
@@ -134,23 +134,23 @@ This occurs when the image was built for a different processor architecture (e.g
 
 ## Common Mistakes
 
-* **Accidentally killing a container with `Ctrl+C`**: Forgetting to use the escape sequence (`Ctrl+P, Ctrl+Q`) when trying to exit an attached terminal session.
-* **Confusing `stop` and `rm`**: Thinking `docker rm` will stop a running container. You must `stop` it first, or use `docker rm --force` (which kills and then removes it).
-* **Quoting issues on Windows**: Trying to pass complex scripts to `sh -c` using single quotes (`'`) in the Windows Command Prompt. Windows CMD requires double quotes (`"`).
+- **Accidentally killing a container with `Ctrl+C`**: Forgetting to use the escape sequence (`Ctrl+P, Ctrl+Q`) when trying to exit an attached terminal session.
+- **Confusing `stop` and `rm`**: Thinking `docker rm` will stop a running container. You must `stop` it first, or use `docker rm --force` (which kills and then removes it).
+- **Quoting issues on Windows**: Trying to pass complex scripts to `sh -c` using single quotes (`'`) in the Windows Command Prompt. Windows CMD requires double quotes (`"`).
 
 ---
 
 ## References
 
-* [MOOC.fi Course Material](https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-spring-2026/chapter-2/running-and-stopping-containers)
-* [Docker Exec Documentation](https://docs.docker.com/engine/reference/commandline/exec/)
-* [Docker Run Documentation](https://docs.docker.com/engine/reference/commandline/run/)
+- [MOOC.fi Course Material](https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-spring-2026/chapter-2/running-and-stopping-containers)
+- [Docker Exec Documentation](https://docs.docker.com/engine/reference/commandline/exec/)
+- [Docker Run Documentation](https://docs.docker.com/engine/reference/commandline/run/)
 
 ---
 
 ## Key Takeaways
 
-* Flags like `-it`, `-d`, and `--rm` are fundamental for day-to-day Docker usage.
-* You can safely peek inside running applications using `docker logs` and `docker exec`.
-* Always be aware of whether you are attached to the primary process (which will die on Ctrl+C) or a secondary process.
-* Running images on incompatible processor architectures works via emulation but impacts performance.
+- Flags like `-it`, `-d`, and `--rm` are fundamental for day-to-day Docker usage.
+- You can safely peek inside running applications using `docker logs` and `docker exec`.
+- Always be aware of whether you are attached to the primary process (which will die on Ctrl+C) or a secondary process.
+- Running images on incompatible processor architectures works via emulation but impacts performance.

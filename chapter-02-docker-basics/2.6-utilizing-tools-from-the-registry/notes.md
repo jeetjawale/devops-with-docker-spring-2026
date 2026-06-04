@@ -10,11 +10,11 @@ This section covers how to leverage pre-built language images from Docker Hub to
 
 After completing this section, you should be able to:
 
-* Translate a standard project README into a functional `Dockerfile`.
-* Utilize pre-built runtime images (like Ruby, Python, or Node.js) instead of bare OS images.
-* Optimize Dockerfile build times by strategically ordering `COPY` and `RUN` commands to cache dependencies.
-* Authenticate, tag, and push a locally built image to a public Docker Hub repository.
-* Understand how Apple Silicon (M-series) Macs can cause architecture mismatch errors during builds.
+- Translate a standard project README into a functional `Dockerfile`.
+- Utilize pre-built runtime images (like Ruby, Python, or Node.js) instead of bare OS images.
+- Optimize Dockerfile build times by strategically ordering `COPY` and `RUN` commands to cache dependencies.
+- Authenticate, tag, and push a locally built image to a public Docker Hub repository.
+- Understand how Apple Silicon (M-series) Macs can cause architecture mismatch errors during builds.
 
 ---
 
@@ -26,10 +26,10 @@ Instead of using a base `ubuntu` image and writing complex `apt-get` scripts to 
 
 ### Dependency Layer Caching
 
-The order of instructions in a `Dockerfile` matters immensely for build speed. If you copy your entire source code into the image before installing dependencies, Docker will invalidate the dependency cache every time you change a single line of code, forcing a full re-download of all packages. 
+The order of instructions in a `Dockerfile` matters immensely for build speed. If you copy your entire source code into the image before installing dependencies, Docker will invalidate the dependency cache every time you change a single line of code, forcing a full re-download of all packages.
 
-**The Caching Trick**: 
-Copy *only* the dependency manifest files (e.g., `package.json`, `Gemfile`, `requirements.txt`) first. Run the install command. *Then* copy the rest of your source code. Docker will cache the heavy dependency layer and reuse it unless the manifest file itself changes.
+**The Caching Trick**:
+Copy _only_ the dependency manifest files (e.g., `package.json`, `Gemfile`, `requirements.txt`) first. Run the install command. _Then_ copy the rest of your source code. Docker will cache the heavy dependency layer and reuse it unless the manifest file itself changes.
 
 ### Docker Hub Namespaces
 
@@ -62,11 +62,11 @@ graph TD
 
 ### CLI Commands
 
-| Command | Purpose |
-| ------- | ------- |
-| `docker login` | Authenticates your local Docker CLI with a registry (defaults to Docker Hub). |
+| Command                                   | Purpose                                                                       |
+| ----------------------------------------- | ----------------------------------------------------------------------------- |
+| `docker login`                            | Authenticates your local Docker CLI with a registry (defaults to Docker Hub). |
 | `docker tag <old> <username>/<new>:<tag>` | Renames an image, preparing it to be pushed to a specific registry namespace. |
-| `docker push <username>/<image>:<tag>` | Uploads the image to the remote registry. |
+| `docker push <username>/<image>:<tag>`    | Uploads the image to the remote registry.                                     |
 
 ---
 
@@ -107,10 +107,10 @@ docker push johndoe/my-web-app:v1
 
 ## Quick Revision
 
-* Always use pre-built language images (e.g., `FROM python:3.11`) instead of installing languages manually on `ubuntu`.
-* To speed up builds, separate the copying of dependency manifests from the copying of the application source code.
-* You cannot push an image named `my-app` directly to Docker Hub; it must be prefixed with your username: `username/my-app`.
-* Deploying a containerized app to cloud providers (like Render or Fly.io) is usually as simple as pointing the service to your published Docker Hub image.
+- Always use pre-built language images (e.g., `FROM python:3.11`) instead of installing languages manually on `ubuntu`.
+- To speed up builds, separate the copying of dependency manifests from the copying of the application source code.
+- You cannot push an image named `my-app` directly to Docker Hub; it must be prefixed with your username: `username/my-app`.
+- Deploying a containerized app to cloud providers (like Render or Fly.io) is usually as simple as pointing the service to your published Docker Hub image.
 
 ---
 
@@ -118,7 +118,7 @@ docker push johndoe/my-web-app:v1
 
 ### Q1. How do you optimize a Dockerfile to avoid re-downloading npm/pip dependencies every time you change a line of application code?
 
-Copy the `package.json` or `requirements.txt` file first, run the installation command, and *then* copy the rest of the application code. Because Docker caches layers sequentially, this ensures the dependency installation layer is cached and only rebuilt if the dependency file itself is modified.
+Copy the `package.json` or `requirements.txt` file first, run the installation command, and _then_ copy the rest of the application code. Because Docker caches layers sequentially, this ensures the dependency installation layer is cached and only rebuilt if the dependency file itself is modified.
 
 ### Q2. What steps are required to publish a local Docker image to Docker Hub?
 
@@ -132,22 +132,22 @@ Modern Macs use ARM architecture (`arm64`), while most PCs use Intel/AMD (`x86_6
 
 ## Common Mistakes
 
-* **Poor Caching Strategy**: Writing `COPY . .` followed immediately by `RUN npm install`. This guarantees that `npm install` runs every single time you change a minor CSS or HTML file, making builds painfully slow.
-* **Forgetting to Tag before Push**: Trying to run `docker push my-app` and receiving an "access denied" error because Docker is trying to push to the restricted official `library/my-app` namespace instead of your personal account.
-* **Committing Secrets**: Accidentally copying `.env` files containing production passwords or API keys into the image during the `COPY . .` step, and then pushing that image publicly to Docker Hub. (Use a `.dockerignore` file to prevent this).
+- **Poor Caching Strategy**: Writing `COPY . .` followed immediately by `RUN npm install`. This guarantees that `npm install` runs every single time you change a minor CSS or HTML file, making builds painfully slow.
+- **Forgetting to Tag before Push**: Trying to run `docker push my-app` and receiving an "access denied" error because Docker is trying to push to the restricted official `library/my-app` namespace instead of your personal account.
+- **Committing Secrets**: Accidentally copying `.env` files containing production passwords or API keys into the image during the `COPY . .` step, and then pushing that image publicly to Docker Hub. (Use a `.dockerignore` file to prevent this).
 
 ---
 
 ## References
 
-* [MOOC.fi Course Material](https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-spring-2026/chapter-2/utilizing-tools-from-the-registry)
-* [Docker Hub](https://hub.docker.com/)
-* [Dockerfile Best Practices - Caching](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache)
+- [MOOC.fi Course Material](https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-spring-2026/chapter-2/utilizing-tools-from-the-registry)
+- [Docker Hub](https://hub.docker.com/)
+- [Dockerfile Best Practices - Caching](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache)
 
 ---
 
 ## Key Takeaways
 
-* Never reinvent the wheel: leverage official language images from Docker Hub.
-* Dockerfile caching is the secret to fast deployment pipelines.
-* Docker Hub is the central nervous system for sharing and deploying containerized applications.
+- Never reinvent the wheel: leverage official language images from Docker Hub.
+- Dockerfile caching is the secret to fast deployment pipelines.
+- Docker Hub is the central nervous system for sharing and deploying containerized applications.

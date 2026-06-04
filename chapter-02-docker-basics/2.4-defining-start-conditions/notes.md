@@ -10,11 +10,11 @@ This section focuses on the relationship and differences between `CMD` and `ENTR
 
 After completing this section, you should be able to:
 
-* Iteratively prototype a container environment using interactive sessions.
-* Optimize Dockerfile layer caching by ordering instructions correctly.
-* Understand the distinct roles of `CMD` and `ENTRYPOINT`.
-* Utilize `CMD` to provide default arguments to an `ENTRYPOINT`.
-* Differentiate between the "exec" and "shell" formatting forms in Dockerfiles.
+- Iteratively prototype a container environment using interactive sessions.
+- Optimize Dockerfile layer caching by ordering instructions correctly.
+- Understand the distinct roles of `CMD` and `ENTRYPOINT`.
+- Utilize `CMD` to provide default arguments to an `ENTRYPOINT`.
+- Differentiate between the "exec" and "shell" formatting forms in Dockerfiles.
 
 ---
 
@@ -22,21 +22,22 @@ After completing this section, you should be able to:
 
 ### Interactive Prototyping
 
-Instead of blindly guessing which commands to put in a `Dockerfile`, it is common practice to start a base image interactively (e.g., `docker run -it ubuntu:24.04`), manually execute installations and configuration commands until the environment works, and *then* copy those successful commands into the `Dockerfile` as `RUN` instructions.
+Instead of blindly guessing which commands to put in a `Dockerfile`, it is common practice to start a base image interactively (e.g., `docker run -it ubuntu:24.04`), manually execute installations and configuration commands until the environment works, and _then_ copy those successful commands into the `Dockerfile` as `RUN` instructions.
 
 ### Layer Caching Optimization
 
-Docker processes `Dockerfile` instructions from top to bottom. If a layer changes, all subsequent layers below it must be rebuilt. 
+Docker processes `Dockerfile` instructions from top to bottom. If a layer changes, all subsequent layers below it must be rebuilt.
 To speed up builds:
-* Place slow, rarely changing commands (like `apt-get install`) at the **top**.
-* Place fast, frequently changing commands (like copying your application source code) at the **bottom**.
+
+- Place slow, rarely changing commands (like `apt-get install`) at the **top**.
+- Place fast, frequently changing commands (like copying your application source code) at the **bottom**.
 
 ### ENTRYPOINT vs CMD
 
-* **`ENTRYPOINT`**: Defines the strict executable that the container *must* run. 
-* **`CMD`**: Defines the default arguments passed to that `ENTRYPOINT`. 
+- **`ENTRYPOINT`**: Defines the strict executable that the container _must_ run.
+- **`CMD`**: Defines the default arguments passed to that `ENTRYPOINT`.
 
-If a user provides arguments at the end of a `docker run` command, those arguments *override* the `CMD` but do *not* override the `ENTRYPOINT`—they are simply appended to it.
+If a user provides arguments at the end of a `docker run` command, those arguments _override_ the `CMD` but do _not_ override the `ENTRYPOINT`—they are simply appended to it.
 
 ### Exec Form vs Shell Form
 
@@ -77,14 +78,14 @@ By combining `ENTRYPOINT` and `CMD`, you can make a container behave exactly lik
 
 ### CLI Commands
 
-| Command | Purpose |
-| ------- | ------- |
+| Command                              | Purpose                                                         |
+| ------------------------------------ | --------------------------------------------------------------- |
 | `docker cp <container>:<src> <dest>` | Copies files from a container's filesystem to the host machine. |
 
 ### Dockerfile Instructions
 
-| Instruction | Purpose |
-| ----------- | ------- |
+| Instruction  | Purpose                                                |
+| ------------ | ------------------------------------------------------ |
 | `ENTRYPOINT` | Configures a container that will run as an executable. |
 
 ---
@@ -108,6 +109,7 @@ CMD ["https://helsinki.fi"]
 ```
 
 **Usage:**
+
 ```bash
 # Runs: curl https://helsinki.fi
 docker run my-curler
@@ -120,11 +122,11 @@ docker run my-curler https://google.com
 
 ## Quick Revision
 
-* `ENTRYPOINT` = The strict executable.
-* `CMD` = The default arguments to the executable.
-* Overriding `CMD` is easy (just add arguments to `docker run`). Overriding `ENTRYPOINT` requires the explicit `--entrypoint` flag.
-* Always use the Exec form `["command", "arg"]` unless you specifically need shell variable expansion.
-* Put commands that change often at the bottom of your Dockerfile to maximize cache hits.
+- `ENTRYPOINT` = The strict executable.
+- `CMD` = The default arguments to the executable.
+- Overriding `CMD` is easy (just add arguments to `docker run`). Overriding `ENTRYPOINT` requires the explicit `--entrypoint` flag.
+- Always use the Exec form `["command", "arg"]` unless you specifically need shell variable expansion.
+- Put commands that change often at the bottom of your Dockerfile to maximize cache hits.
 
 ---
 
@@ -146,22 +148,22 @@ Place instructions that are less likely to change (like downloading OS updates a
 
 ## Common Mistakes
 
-* **Using Shell Form blindly**: Writing `CMD myapp start` instead of `CMD ["myapp", "start"]` and wondering why the container takes 10 seconds to stop when you run `docker stop`.
-* **Poor Caching**: Putting `COPY . .` (copying the whole app) at the very top of the Dockerfile, causing `apt-get install` to re-run and re-download packages every single time a single line of code changes.
-* **Overriding Confusion**: Using `CMD` for an executable that requires arguments, and getting confused when running `docker run my-image my-arg` completely replaces the executable instead of appending the argument to it.
+- **Using Shell Form blindly**: Writing `CMD myapp start` instead of `CMD ["myapp", "start"]` and wondering why the container takes 10 seconds to stop when you run `docker stop`.
+- **Poor Caching**: Putting `COPY . .` (copying the whole app) at the very top of the Dockerfile, causing `apt-get install` to re-run and re-download packages every single time a single line of code changes.
+- **Overriding Confusion**: Using `CMD` for an executable that requires arguments, and getting confused when running `docker run my-image my-arg` completely replaces the executable instead of appending the argument to it.
 
 ---
 
 ## References
 
-* [MOOC.fi Course Material](https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-spring-2026/chapter-2/defining-start-conditions-for-the-container)
-* [ENTRYPOINT vs CMD Documentation](https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact)
-* [Docker COPY Command](https://docs.docker.com/engine/reference/commandline/cp/)
+- [MOOC.fi Course Material](https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-spring-2026/chapter-2/defining-start-conditions-for-the-container)
+- [ENTRYPOINT vs CMD Documentation](https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact)
+- [Docker COPY Command](https://docs.docker.com/engine/reference/commandline/cp/)
 
 ---
 
 ## Key Takeaways
 
-* Prototyping via interactive terminal (`docker run -it`) saves time when figuring out dependency chains for a Dockerfile.
-* Combining `ENTRYPOINT` and `CMD` is the standard pattern for creating containers that act like command-line utilities.
-* The order of instructions in a Dockerfile drastically impacts build performance due to layer caching.
+- Prototyping via interactive terminal (`docker run -it`) saves time when figuring out dependency chains for a Dockerfile.
+- Combining `ENTRYPOINT` and `CMD` is the standard pattern for creating containers that act like command-line utilities.
+- The order of instructions in a Dockerfile drastically impacts build performance due to layer caching.
