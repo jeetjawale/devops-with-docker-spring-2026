@@ -7,7 +7,7 @@ Repository for study notes, exercise hints, and cheatsheets for the University o
 Course Deadline: 16 June 2026
 
 Current Progress: 17/39 exercises completed (43.6%)
-                             
+
 ## Chapter Navigation
 
 ### Chapter 1: Getting Started
@@ -41,14 +41,14 @@ Current Progress: 17/39 exercises completed (43.6%)
 - [Multi-host Environments](chapter-04-security-and-optimization/)
 - [Summary](chapter-04-security-and-optimization/)
 
-## Cheatsheets
+<!-- ## Cheatsheets
 
 Quick-reference guides for commonly used commands and concepts.
 
 | Topic                                                      | Description                          |
 | ---------------------------------------------------------- | ------------------------------------ |
 | [Docker CLI](cheatsheets/docker-cli-cheatsheet.md)         | Images, containers, logs, networking |
-| [Docker Compose](cheatsheets/docker-compose-cheatsheet.md) | Multi-container applications         |
+| [Docker Compose](cheatsheets/docker-compose-cheatsheet.md) | Multi-container applications         | -->
 
 ## License
 
