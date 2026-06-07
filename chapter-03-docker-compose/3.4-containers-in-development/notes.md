@@ -55,8 +55,8 @@ graph TD
     HostModules[Local node_modules]
     
     Container[Development Container]
-    ContainerCode[/usr/src/app]
-    ContainerModules[/usr/src/app/node_modules]
+    ContainerCode["/usr/src/app"]
+    ContainerModules["/usr/src/app/node_modules"]
     
     HostCode -->|Bind Mount overwrites| ContainerCode
     ContainerModules -->|Named Volume protects| ContainerModules
