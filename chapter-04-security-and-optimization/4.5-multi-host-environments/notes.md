@@ -42,13 +42,13 @@ Container orchestrators solve this. You tell the orchestrator, "I need 10 instan
 
 ```mermaid
 graph TD
-    subgraph Single Host (Docker Compose)
+    subgraph SingleHost ["Single Host (Docker Compose)"]
         A[Server 1] --> B[App Container]
         A --> C[DB Container]
         style A fill:#f8cecc,stroke:#b85450
     end
     
-    subgraph Multi-Host (Kubernetes / Swarm)
+    subgraph MultiHost ["Multi-Host (Kubernetes / Swarm)"]
         D[Control Plane / Master] --> E[Worker Node 1]
         D --> F[Worker Node 2]
         D --> G[Worker Node 3]

@@ -34,9 +34,8 @@ Docker official images are like the “free‑for‑use” packages in a Linux d
 ```mermaid
 flowchart TD
     GitHub[Docker Official Images Repo] -->|PR approved| Build[Github Actions]
-    Build -->|Build image| DockerHub[Docker Hub
-        library<sub>official images</sub>]
-    DockerHub -->|Push layer| Registry[Registry (signed)]
+    Build -->|Build image| DockerHub["Docker Hub <br> library<sub>official images</sub>"]
+    DockerHub -->|Push layer| Registry["Registry (signed)"]
 ```
 
 ---
